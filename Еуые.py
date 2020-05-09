@@ -14,14 +14,19 @@ def goX(x):
     c.move(player, x, 0)
 a = 2
 def X(d):
+    global vy
     vy = d
-    return vy
+    if c.coords(player)[3] >= 440:
+        c.move(player, 0, -vy)
+        goY()
 def goY():
     global a, vy, player
     vy = vy - a
     c.move(player, 0, -vy)
     if c.coords(player)[3] < 440:
         w.after(30, goY)
+    else:
+        w.bind("<Up>", lambda event: X(30))
 pass
 w.bind("<Left>", lambda event: goX(-10))
 w.bind("<Right>", lambda event: goX(10))
